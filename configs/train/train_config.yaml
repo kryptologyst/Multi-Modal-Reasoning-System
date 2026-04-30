@@ -1,0 +1,36 @@
+# Training configuration
+defaults:
+  - model/clip_config
+
+# Training specific overrides
+training:
+  batch_size: 16
+  learning_rate: 5e-5
+  num_epochs: 5
+  warmup_ratio: 0.1
+  save_every: 1000
+  eval_every: 500
+  log_every: 100
+
+# Data paths
+data:
+  train_path: "data/train.json"
+  val_path: "data/val.json"
+  test_path: "data/test.json"
+  image_dir: "data/images"
+  
+# Output paths
+output:
+  checkpoint_dir: "assets/checkpoints"
+  log_dir: "logs"
+  results_dir: "assets/results"
+
+# Reproducibility
+seed: 42
+deterministic: true
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/training.log"

@@ -1,0 +1,65 @@
+# Model configuration
+model:
+  name: "clip-vit-base-patch32"
+  pretrained: true
+  freeze_vision: false
+  freeze_text: false
+  temperature: 0.07
+  projection_dim: 512
+
+# Vision encoder configuration
+vision:
+  backbone: "vit-base-patch32"
+  input_size: 224
+  patch_size: 32
+  num_layers: 12
+  hidden_size: 768
+  num_attention_heads: 12
+
+# Text encoder configuration
+text:
+  backbone: "bert-base-uncased"
+  max_length: 77
+  vocab_size: 49408
+  hidden_size: 512
+  num_layers: 12
+  num_attention_heads: 8
+
+# Training configuration
+training:
+  batch_size: 32
+  learning_rate: 1e-4
+  weight_decay: 0.01
+  num_epochs: 10
+  warmup_steps: 1000
+  gradient_clip_norm: 1.0
+  mixed_precision: true
+  accumulation_steps: 1
+
+# Data configuration
+data:
+  image_size: 224
+  text_max_length: 77
+  num_workers: 4
+  pin_memory: true
+  shuffle: true
+
+# Evaluation configuration
+evaluation:
+  metrics:
+    - "recall_at_1"
+    - "recall_at_5"
+    - "recall_at_10"
+    - "mean_average_precision"
+    - "median_rank"
+  batch_size: 64
+  top_k: [1, 5, 10]
+
+# Device configuration
+device:
+  auto_detect: true
+  cuda: true
+  mps: true  # Apple Silicon
+  cpu: true
+  deterministic: true
+  benchmark: false
